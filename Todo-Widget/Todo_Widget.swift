@@ -65,11 +65,13 @@ struct Todo_WidgetEntryView : View {
     @Environment(\.widgetFamily) var widgetFamily
     var entry: Provider.Entry
 
+    static let url = URL(string: "widget-deepLink://")!
+
     var body: some View {
         switch widgetFamily {
         case .accessoryCircular:
             Gauge(value: calculateGaugeValue()) {
-                Text("완료")
+                Text("TODO")
             }
             .gaugeStyle(.accessoryCircularCapacity)
         case .accessoryRectangular:
@@ -80,24 +82,33 @@ struct Todo_WidgetEntryView : View {
                         Text(todo.title ?? "")
                         Spacer()
                     }
-                    .foregroundColor(.black)
                 }
                 Spacer()
             }
             .padding()
         default:
-            VStack {
-                ForEach(validateLenghtForWidget(), id: \.self) { todo in
-                    HStack {
-                        Image(systemName: "square")
-                        Text(todo.title ?? "")
-                        Spacer()
+            if entry.inProgressTodos.isEmpty {
+                Text("⚠️투두가 비었습니다")
+                    .fontWeight(.bold)
+                    .font(.title)
+                    .opacity(0.6)
+                    .padding()
+            } else {
+                VStack {
+                    ForEach(validateLenghtForWidget(), id: \.self) { todo in
+                        HStack {
+                            Image(systemName: "square")
+                            Text(todo.title ?? "")
+                                .lineLimit(1)
+                            Spacer()
+                        }
+                        .foregroundColor(.black)
+                        .opacity(0.8)
                     }
-                    .foregroundColor(.black)
+                    Spacer()
                 }
-                Spacer()
+                .padding()
             }
-            .padding()
         }
     }
 
@@ -134,7 +145,7 @@ struct Todo_Widget: Widget {
         }
         .configurationDisplayName("My Widget")
         .description("This is an example widget.")
-        .supportedFamilies([.accessoryRectangular, .systemMedium, .systemLarge, .accessoryCircular])
+        .supportedFamilies([.accessoryCircular, .accessoryRectangular, .systemSmall])
     }
 }
 
@@ -142,9 +153,5 @@ struct Todo_Widget: Widget {
 //    static var previews: some View {
 //        Todo_WidgetEntryView(entry: SimpleEntry(date: Date()))
 //            .previewContext(WidgetPreviewContext(family: .accessoryRectangular))
-//        Todo_WidgetEntryView(entry: SimpleEntry(date: Date()))
-//            .previewContext(WidgetPreviewContext(family: .systemMedium))
-//        Todo_WidgetEntryView(entry: SimpleEntry(date: Date()))
-//            .previewContext(WidgetPreviewContext(family: .systemLarge))
 //    }
 //}

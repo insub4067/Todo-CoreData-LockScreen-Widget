@@ -30,9 +30,10 @@ final class ContenViewModel: ObservableObject {
     let viewContext = CoreDataManager.shared.container.viewContext
 
     func didSubmitTextField() {
-        createTodo()
-        getAllTodos()
-        userInput = ""
+        if !userInput.isEmpty {
+            createTodo()
+            getAllTodos()
+        }
     }
 
     func didTapTodo(todo: TodoEntity) {
@@ -44,8 +45,20 @@ final class ContenViewModel: ObservableObject {
         deleteTodo(todo: todo)
         getAllTodos()
     }
+
+    func didTapXbutton() {
+        clearUserinput()
+    }
 }
 
+// MARK: - DATA HANDLING FUNCTIONS
+extension ContenViewModel {
+    func clearUserinput() {
+        userInput = ""
+    }
+}
+
+// MARK: - CORE DATA FUNCTION CALLS
 extension ContenViewModel {
     func getAllTodos() {
         let response = CoreDataManager.shared.getAllTodos()

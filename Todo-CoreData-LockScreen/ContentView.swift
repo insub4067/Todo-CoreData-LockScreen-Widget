@@ -14,15 +14,21 @@ struct ContentView: View {
 
     var body: some View {
         List {
-            Section("투두 추가") {
+            Section("추가") {
                 HStack {
                     TextField("입력", text: $viewModel.userInput) {
                         viewModel.didSubmitTextField()
                     }
                     Spacer()
+                    Image(systemName: "x.circle")
+                        .onTapGesture {
+                            viewModel.didTapXbutton()
+                        }
+                        .opacity(0.6)
+                        .font(.subheadline)
                 }
             }
-            Section("진행중 투두") {
+            Section("진행중") {
                 ForEach(viewModel.inProgressTodoList, id: \.self) { todo in
                     HStack {
                         Button {
@@ -49,7 +55,7 @@ struct ContentView: View {
                     }
                 }
             }
-            Section("완료된 투두") {
+            Section("완료") {
                 ForEach(viewModel.doneTodoList, id: \.self) { todo in
                     HStack {
                         Button {
@@ -63,7 +69,7 @@ struct ContentView: View {
                             .strikethrough()
                     }
                     .foregroundColor(.black)
-                    .opacity(0.4)
+                    .opacity(0.6)
                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                         Button {
                             withAnimation {
