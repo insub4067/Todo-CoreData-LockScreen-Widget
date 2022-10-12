@@ -23,29 +23,44 @@ final class ContenViewModel: ObservableObject {
     @Published var doneTodoList: Array<TodoEntity> = []
     @Published var inProgressTodoList: Array<TodoEntity> = []
 
-    func didSubmitTextField(context: NSManagedObjectContext) {
-        createTodo(context: context)
-        getAllTodos(context: context)
+    init() {
+        getAllTodos()
     }
 
-    func didTapTodo(todo: TodoEntity, context: NSManagedObjectContext) {
-        editTodo(todo: todo, context: context)
-        getAllTodos(context: context)
+    let viewContext = CoreDataManager.shared.container.viewContext
+
+    func didSubmitTextField() {
+        createTodo()
+        getAllTodos()
+        userInput = ""
+    }
+
+    func didTapTodo(todo: TodoEntity) {
+        editTodo(todo: todo)
+        getAllTodos()
+    }
+
+    func didSwipeTodo(todo: TodoEntity) {
+        deleteTodo(todo: todo)
+        getAllTodos()
     }
 }
 
 extension ContenViewModel {
-    func getAllTodos(context: NSManagedObjectContext) {
-        let response = CoreDataManager.shared.getAllTodos(context: context)
+    func getAllTodos() {
+        let response = CoreDataManager.shared.getAllTodos()
         todoList = response ?? [TodoEntity()]
     }
 
-    func createTodo(context: NSManagedObjectContext) {
-        CoreDataManager.shared.createTodo(title: userInput, context: context)
-        userInput = ""
+    func createTodo() {
+        CoreDataManager.shared.createTodo(title: userInput)
     }
 
-    func editTodo(todo: TodoEntity, context: NSManagedObjectContext) {
-        CoreDataManager.shared.editTodo(todo: todo, context: context)
+    func editTodo(todo: TodoEntity) {
+        CoreDataManager.shared.editTodo(todo: todo)
+    }
+
+    func deleteTodo(todo: TodoEntity) {
+        CoreDataManager.shared.deleteTodo(todo: todo)
     }
 }

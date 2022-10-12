@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C6372EA128F6ADEE00CCA5BF /* WidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6372EA028F6ADEE00CCA5BF /* WidgetViewModel.swift */; };
-		C6372EA228F6AE2700CCA5BF /* WidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6372EA028F6ADEE00CCA5BF /* WidgetViewModel.swift */; };
 		C6D34D7128F5B8D200D0AD70 /* Todo_CoreData_LockScreenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D34D7028F5B8D200D0AD70 /* Todo_CoreData_LockScreenApp.swift */; };
 		C6D34D7328F5B8D200D0AD70 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D34D7228F5B8D200D0AD70 /* ContentView.swift */; };
 		C6D34D7528F5B8D300D0AD70 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C6D34D7428F5B8D300D0AD70 /* Assets.xcassets */; };
@@ -52,7 +50,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C6372EA028F6ADEE00CCA5BF /* WidgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetViewModel.swift; sourceTree = "<group>"; };
 		C6D34D6D28F5B8D200D0AD70 /* Todo-CoreData-LockScreen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Todo-CoreData-LockScreen.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6D34D7028F5B8D200D0AD70 /* Todo_CoreData_LockScreenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo_CoreData_LockScreenApp.swift; sourceTree = "<group>"; };
 		C6D34D7228F5B8D200D0AD70 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -148,7 +145,6 @@
 			isa = PBXGroup;
 			children = (
 				C6D34D8D28F5B9FA00D0AD70 /* Todo_Widget.swift */,
-				C6372EA028F6ADEE00CCA5BF /* WidgetViewModel.swift */,
 				C6D34D8F28F5B9FA00D0AD70 /* Todo_Widget.intentdefinition */,
 				C6D34D9028F5B9FB00D0AD70 /* Assets.xcassets */,
 				C6D34D9228F5B9FB00D0AD70 /* Info.plist */,
@@ -261,7 +257,6 @@
 				C6D34D7328F5B8D200D0AD70 /* ContentView.swift in Sources */,
 				C6D34D7128F5B8D200D0AD70 /* Todo_CoreData_LockScreenApp.swift in Sources */,
 				C6D34DA028F5BAB400D0AD70 /* DataModel.xcdatamodeld in Sources */,
-				C6372EA128F6ADEE00CCA5BF /* WidgetViewModel.swift in Sources */,
 				C6D34D8128F5B93A00D0AD70 /* CoreDataManager.swift in Sources */,
 				C6D34D7F28F5B8F300D0AD70 /* ContentViewModel.swift in Sources */,
 			);
@@ -271,7 +266,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C6372EA228F6AE2700CCA5BF /* WidgetViewModel.swift in Sources */,
 				C6D34DA128F5BB3E00D0AD70 /* CoreDataManager.swift in Sources */,
 				C6D34DA328F5BB4E00D0AD70 /* DataModel.xcdatamodeld in Sources */,
 				C6D34D9328F5B9FB00D0AD70 /* Todo_Widget.intentdefinition in Sources */,

@@ -69,31 +69,36 @@ class CoreDataManager: ObservableObject {
 }
 
 extension CoreDataManager {
-    func save(context: NSManagedObjectContext) {
+    func save() {
         do {
-            try context.save()
+            try container.viewContext.save()
         } catch {
             print("FAILED TO SAVE CONTEXT")
         }
     }
 
-    func getAllTodos(context: NSManagedObjectContext) -> Array<TodoEntity>? {
+    func getAllTodos() -> Array<TodoEntity>? {
         let fetchRequest: NSFetchRequest<TodoEntity> = TodoEntity.fetchRequest()
-        let result = try? context.fetch(fetchRequest)
+        let result = try? container.viewContext.fetch(fetchRequest)
         return result
     }
 
-    func createTodo(title: String, context: NSManagedObjectContext) {
-        let todo = TodoEntity(context: context)
+    func createTodo(title: String) {
+        let todo = TodoEntity(context: container.viewContext)
         todo.id = UUID()
         todo.title = title
         todo.createAt = Date()
         todo.hasDone = false
-        save(context: context)
+        save()
     }
 
-    func editTodo(todo: TodoEntity, context: NSManagedObjectContext) {
+    func editTodo(todo: TodoEntity) {
         todo.hasDone.toggle()
-        save(context: context)
+        save()
+    }
+
+    func deleteTodo(todo: TodoEntity) {
+        container.viewContext.delete(todo)
+        save()
     }
 }

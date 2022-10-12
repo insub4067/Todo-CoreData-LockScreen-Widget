@@ -9,7 +9,6 @@ import SwiftUI
 import WidgetKit
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.scenePhase) var scenePhase
     @ObservedObject var viewModel = ContenViewModel()
 
@@ -18,7 +17,7 @@ struct ContentView: View {
             Section("투두 추가") {
                 HStack {
                     TextField("입력", text: $viewModel.userInput) {
-                        viewModel.didSubmitTextField(context: managedObjectContext)
+                        viewModel.didSubmitTextField()
                     }
                     Spacer()
                 }
@@ -28,7 +27,7 @@ struct ContentView: View {
                     HStack {
                         Button {
                             withAnimation {
-                                viewModel.didTapTodo(todo: todo, context: managedObjectContext)
+                                viewModel.didTapTodo(todo: todo)
                             }
                         } label: {
                             Image(systemName: "square")
@@ -38,6 +37,16 @@ struct ContentView: View {
                     }
                     .foregroundColor(.black)
                     .opacity(0.8)
+                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                        Button {
+                            withAnimation {
+                                viewModel.didSwipeTodo(todo: todo)
+                            }
+                        } label: {
+                            Image(systemName: "trash")
+                        }
+                        .tint(.red)
+                    }
                 }
             }
             Section("완료된 투두") {
@@ -45,7 +54,7 @@ struct ContentView: View {
                     HStack {
                         Button {
                             withAnimation {
-                                viewModel.didTapTodo(todo: todo, context: managedObjectContext)
+                                viewModel.didTapTodo(todo: todo)
                             }
                         } label: {
                             Image(systemName: "checkmark.square")
@@ -55,6 +64,16 @@ struct ContentView: View {
                     }
                     .foregroundColor(.black)
                     .opacity(0.4)
+                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                        Button {
+                            withAnimation {
+                                viewModel.didSwipeTodo(todo: todo)
+                            }
+                        } label: {
+                            Image(systemName: "trash")
+                        }
+                        .tint(.red)
+                    }
 
                 }
             }
@@ -69,14 +88,5 @@ struct ContentView: View {
                 WidgetCenter.shared.reloadAllTimelines()
             }
         })
-        .onAppear {
-            viewModel.getAllTodos(context: managedObjectContext)
-        }
     }
 }
-
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentView()
-//    }
-//}

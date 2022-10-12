@@ -63,7 +63,6 @@ struct SimpleEntry: TimelineEntry {
 
 struct Todo_WidgetEntryView : View {
     @Environment(\.widgetFamily) var widgetFamily
-    @ObservedObject var viewModel = WidgetViewModel()
     var entry: Provider.Entry
 
     var body: some View {
