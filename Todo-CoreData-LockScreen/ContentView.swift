@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.scenePhase) var scenePhase
     @ObservedObject var viewModel = ContenViewModel()
 
     var body: some View {
@@ -57,6 +59,16 @@ struct ContentView: View {
                 }
             }
         }
+        .onChange(of: scenePhase, perform: { newValue in
+            switch newValue {
+            case .active:
+                WidgetCenter.shared.reloadAllTimelines()
+            case .background:
+                WidgetCenter.shared.reloadAllTimelines()
+            default:
+                WidgetCenter.shared.reloadAllTimelines()
+            }
+        })
         .onAppear {
             viewModel.getAllTodos(context: managedObjectContext)
         }
