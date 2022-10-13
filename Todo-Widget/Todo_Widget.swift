@@ -77,17 +77,26 @@ struct Todo_WidgetEntryView : View {
             .gaugeStyle(.accessoryCircularCapacity)
         // MARK: - LockScreenRectangle
         case .accessoryRectangular:
-            VStack {
-                ForEach(validateLenghtForLockscreen(), id: \.self) { todo in
-                    HStack {
-                        Image(systemName: "square")
-                        Text(todo.title ?? "")
-                        Spacer()
+            Group {
+                if entry.inProgressTodos.isEmpty {
+                    Text("⚠️투두가 비었습니다")
+                        .fontWeight(.bold)
+                } else {
+                    VStack {
+                        ForEach(validateLenghtForLockscreen(), id: \.self) { todo in
+                            HStack {
+                                Image(systemName: "square")
+                                Text(todo.title ?? "")
+                                Spacer()
+                            }
+                        }
                     }
+                    .padding()
                 }
-                Spacer()
             }
-            .padding()
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+            .background(.black)
+            .cornerRadius(10)
         // MARK: - WidgetSmall
         default:
             if entry.inProgressTodos.isEmpty {
