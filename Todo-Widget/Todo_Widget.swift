@@ -29,7 +29,7 @@ struct Provider: TimelineProvider {
             let entry = SimpleEntry(date: Date(), allTodos: allTodos, inProgressTodos: inProgressTodos)
             completion(entry)
         } catch {
-            print("❌ Widget Failed to fetch days in snapshot")
+            print("❌ Widget Failed to fetch todos in snapshot")
         }
     }
 
@@ -46,7 +46,7 @@ struct Provider: TimelineProvider {
             let timeline = Timeline(entries: [entry], policy: .after(nextUpdate!))
             completion(timeline)
         } catch {
-            print("❌ Widget Failed to fetch days in snapshot")
+            print("❌ Widget Failed to fetch todos in snapshot")
         }
     }
 

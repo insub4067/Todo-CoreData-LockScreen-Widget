@@ -485,8 +485,9 @@
 				DEVELOPMENT_TEAM = 76AJ433CP5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Todo-Widget/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Todo-Widget";
+				INFOPLIST_KEY_CFBundleDisplayName = SimpleTodo;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -513,8 +514,9 @@
 				DEVELOPMENT_TEAM = 76AJ433CP5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Todo-Widget/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Todo-Widget";
+				INFOPLIST_KEY_CFBundleDisplayName = SimpleTodo;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
