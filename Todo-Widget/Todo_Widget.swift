@@ -88,13 +88,30 @@ struct Todo_WidgetEntryView : View {
             .padding()
         default:
             if entry.inProgressTodos.isEmpty {
-                Text("⚠️투두가 비었습니다")
-                    .fontWeight(.bold)
-                    .font(.title)
-                    .opacity(0.6)
-                    .padding()
+                ZStack {
+                    VStack {
+                        HStack {
+                            Spacer()
+                            Text("투두")
+                                .font(.caption)
+                                .opacity(0.3)
+                        }
+                        Spacer()
+                    }
+                    Text("⚠️투두가 비었습니다")
+                        .fontWeight(.bold)
+                        .font(.title)
+                        .opacity(0.6)
+                }
+                .padding()
             } else {
                 VStack {
+                    HStack {
+                        Spacer()
+                        Text("투두")
+                            .font(.caption)
+                            .opacity(0.3)
+                    }
                     ForEach(validateLenghtForWidget(), id: \.self) { todo in
                         HStack {
                             Image(systemName: "square")
