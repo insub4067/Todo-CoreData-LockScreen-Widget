@@ -126,6 +126,7 @@ struct Todo_WidgetEntryView : View {
                         HStack {
                             Image(systemName: "square")
                             Text(todo.title ?? "")
+                                .font(.subheadline)
                                 .lineLimit(1)
                             Spacer()
                         }
