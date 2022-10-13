@@ -69,11 +69,13 @@ struct Todo_WidgetEntryView : View {
 
     var body: some View {
         switch widgetFamily {
+        // MARK: - LockScreenRectangle
         case .accessoryCircular:
             Gauge(value: calculateGaugeValue()) {
                 Text("TODO")
             }
             .gaugeStyle(.accessoryCircularCapacity)
+        // MARK: - LockScreenRectangle
         case .accessoryRectangular:
             VStack {
                 ForEach(validateLenghtForLockscreen(), id: \.self) { todo in
@@ -86,6 +88,7 @@ struct Todo_WidgetEntryView : View {
                 Spacer()
             }
             .padding()
+        // MARK: - WidgetSmall
         default:
             if entry.inProgressTodos.isEmpty {
                 ZStack {

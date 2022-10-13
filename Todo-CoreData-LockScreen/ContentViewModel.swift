@@ -9,6 +9,7 @@ import Foundation
 import CoreData
 
 final class ContenViewModel: ObservableObject {
+    // MARK: - Variables
     @Published var userInput = ""
     @Published var todoList: Array<TodoEntity> = [] {
         didSet {
@@ -27,8 +28,7 @@ final class ContenViewModel: ObservableObject {
         getAllTodos()
     }
 
-    let viewContext = CoreDataManager.shared.container.viewContext
-
+    // MARK: - View Interaction Functions
     func didSubmitTextField() {
         if !userInput.isEmpty {
             createTodo()

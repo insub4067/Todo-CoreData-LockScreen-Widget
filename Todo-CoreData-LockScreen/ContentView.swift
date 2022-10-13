@@ -37,7 +37,6 @@ struct ContentView: View {
                             }
                         } label: {
                             Image(systemName: "square")
-
                         }
                         Text(todo.title ?? "")
                     }
