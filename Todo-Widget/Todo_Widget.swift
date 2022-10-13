@@ -20,7 +20,6 @@ struct Provider: TimelineProvider {
     }
 
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> Void) {
-
         do {
             let allTodos = try viewContext.fetch(todoFetchRequest)
             let inProgressTodos = allTodos.filter { todo in
@@ -34,7 +33,6 @@ struct Provider: TimelineProvider {
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> Void) {
-
         do {
             let allTodos = try viewContext.fetch(todoFetchRequest)
             let inProgressTodos = allTodos.filter { todo in
@@ -148,8 +146,8 @@ struct Todo_WidgetEntryView : View {
     }
 
     func validateLenghtForLockscreen() -> Array<TodoEntity> {
-        if entry.inProgressTodos.count > 3 {
-            return Array(entry.inProgressTodos[0...2])
+        if entry.inProgressTodos.count > 2 {
+            return Array(entry.inProgressTodos[0...1])
         } else {
             return entry.inProgressTodos
         }
