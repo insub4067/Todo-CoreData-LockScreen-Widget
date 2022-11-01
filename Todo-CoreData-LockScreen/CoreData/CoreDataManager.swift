@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-class CoreDataManager: ObservableObject {
+final class CoreDataManager {
 
     // MARK: - Properties
     static let shared = CoreDataManager()
