@@ -8,9 +8,8 @@
 import Foundation
 import CoreData
 
-// com.kim.Todo-CoreData-LockScreen
-
 class CoreDataManager: ObservableObject {
+
     static let shared = CoreDataManager()
 
     private let databaseName = "DataModel.sqlite"
@@ -33,22 +32,23 @@ class CoreDataManager: ObservableObject {
         return container.appendingPathComponent(databaseName)
     }
 
-    private var isNeededToSaveNewURL: Bool {
-        !FileManager.default.fileExists(atPath: oldStoreURL.path)
-    }
+//    private var isNeededToSaveNewURL: Bool {
+//        FileManager.default.fileExists(atPath: oldStoreURL.path)
+//    }
 
     private init() {
-        saveStoreURL(isNeededToSaveNewURL)
+//        saveStoreURL(isNeededToSaveNewURL)
         loadStores()
         migrateStore()
         context.automaticallyMergesChangesFromParent = true
     }
 
-    private func saveStoreURL(_ isNeededToSaveNewURL: Bool) {
-        guard isNeededToSaveNewURL else { return }
-        guard let description = container.persistentStoreDescriptions.first else { return }
-        description.url = sharedStoreURL
-    }
+//    private func saveStoreURL(_ isNeededToSaveNewURL: Bool) {
+//        guard isNeededToSaveNewURL else { return }
+//        guard let description = container.persistentStoreDescriptions.first else { return }
+//        description.url = sharedStoreURL
+//        print("DEBUG")
+//    }
 
     private func loadStores() {
         container.loadPersistentStores { desc, error in
@@ -61,13 +61,11 @@ class CoreDataManager: ObservableObject {
     private func migrateStore() {
         let coordinator = container.persistentStoreCoordinator
         guard let oldStore = coordinator.persistentStore(for: oldStoreURL) else { return }
-        // MARK: - Migrate Store
         do {
             let _ = try coordinator.migratePersistentStore(oldStore, to: sharedStoreURL, type: .sqlite)
         } catch {
             print(error.localizedDescription)
         }
-        // MARK: - Remove Old Store
         do {
             try FileManager.default.removeItem(at: oldStoreURL)
         } catch {

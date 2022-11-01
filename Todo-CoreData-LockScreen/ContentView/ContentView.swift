@@ -20,14 +20,7 @@ struct ContentView: View {
         }
         .listStyle(.inset)
         .onChange(of: scenePhase, perform: { newValue in
-            switch newValue {
-            case .active:
-                WidgetCenter.shared.reloadAllTimelines()
-            case .background:
-                WidgetCenter.shared.reloadAllTimelines()
-            default:
-                WidgetCenter.shared.reloadAllTimelines()
-            }
+            WidgetCenter.shared.reloadAllTimelines()
         })
     }
 }
@@ -77,7 +70,8 @@ extension ContentView {
                     .tint(.red)
                 }
             }
-        }    }
+        }
+    }
 
     var doneTodoListSection: some View {
         Section("완료") {
