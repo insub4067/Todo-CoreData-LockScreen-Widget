@@ -5,24 +5,14 @@
 //  Created by Kim Insub on 2022/10/11.
 //
 
-import Foundation
 import CoreData
+import SwiftUI
 
 final class ContenViewModel: ObservableObject {
-    // MARK: - Variables
     @Published var userInput = ""
-    @Published var todoList: Array<TodoEntity> = [] {
-        didSet {
-            doneTodoList = todoList.filter({ todo in
-                todo.hasDone == true
-            })
-            inProgressTodoList = todoList.filter({ todo in
-                todo.hasDone == false
-            })
-        }
-    }
-    @Published var doneTodoList: Array<TodoEntity> = []
-    @Published var inProgressTodoList: Array<TodoEntity> = []
+    @Published var todoList: [TodoEntity] = []
+    @Published var doneTodoList: [TodoEntity] = []
+    @Published var inProgressTodoList: [TodoEntity] = []
 
     init() {
         getAllTodos()
@@ -31,19 +21,26 @@ final class ContenViewModel: ObservableObject {
     // MARK: - View Interaction Functions
     func didSubmitTextField() {
         if !userInput.isEmpty {
-            createTodo()
-            getAllTodos()
+            Task {
+                await createTodo()
+                clearUserinput()
+                getAllTodos()
+            }
         }
     }
 
     func didTapTodo(todo: TodoEntity) {
-        editTodo(todo: todo)
-        getAllTodos()
+        Task {
+            await editTodo(todo: todo)
+            getAllTodos()
+        }
     }
 
     func didSwipeTodo(todo: TodoEntity) {
-        deleteTodo(todo: todo)
-        getAllTodos()
+        Task {
+            await deleteTodo(todo: todo)
+            getAllTodos()
+        }
     }
 
     func didTapXbutton() {
@@ -51,29 +48,39 @@ final class ContenViewModel: ObservableObject {
     }
 }
 
-// MARK: - DATA HANDLING FUNCTIONS
-extension ContenViewModel {
-    func clearUserinput() {
-        userInput = ""
-    }
-}
-
-// MARK: - CORE DATA FUNCTION CALLS
-extension ContenViewModel {
+private extension ContenViewModel {
     func getAllTodos() {
         let response = CoreDataManager.shared.getAllTodos()
-        todoList = response ?? [TodoEntity()]
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.todoList = response
+            withAnimation {
+                self.inProgressTodoList = self.todoList.filter({ todo in
+                    todo.hasDone == false
+                })
+                self.doneTodoList = self.todoList.filter({ todo in
+                    todo.hasDone == true
+                })
+            }
+        }
     }
 
-    func createTodo() {
+    func createTodo() async {
         CoreDataManager.shared.createTodo(title: userInput)
     }
 
-    func editTodo(todo: TodoEntity) {
+    func editTodo(todo: TodoEntity) async {
         CoreDataManager.shared.editTodo(todo: todo)
     }
 
-    func deleteTodo(todo: TodoEntity) {
+    func deleteTodo(todo: TodoEntity) async {
         CoreDataManager.shared.deleteTodo(todo: todo)
+    }
+
+    func clearUserinput() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.userInput = ""
+        }
     }
 }

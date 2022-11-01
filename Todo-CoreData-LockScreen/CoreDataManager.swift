@@ -12,58 +12,66 @@ import CoreData
 
 class CoreDataManager: ObservableObject {
     static let shared = CoreDataManager()
-    let container = NSPersistentContainer(name: "DataModel")
-    let databaseName = "DataModel.sqlite"
 
-    var oldStoreURL: URL {
-        let directory = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+    private let databaseName = "DataModel.sqlite"
+    private let container = NSPersistentContainer(name: "DataModel")
+    private var context: NSManagedObjectContext {
+        container.viewContext
+    }
+
+    private var oldStoreURL: URL {
+        guard let directory = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first else {
+            return URL(fileURLWithPath: "")
+        }
         return directory.appendingPathComponent(databaseName)
     }
 
-    var sharedStoreURL: URL {
-        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.kim.TodoLockScreen")!
+    private var sharedStoreURL: URL {
+        guard let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.kim.TodoLockScreen") else {
+            return URL(fileURLWithPath: "")
+        }
         return container.appendingPathComponent(databaseName)
     }
 
-    init() {
-        print("core data init")
-
-        if !FileManager.default.fileExists(atPath: oldStoreURL.path) {
-            print("old store doesn't exist. Using new shared URL")
-            container.persistentStoreDescriptions.first!.url = sharedStoreURL
-        }
-
-        print("Container URL = \(container.persistentStoreDescriptions.first!.url!)")
-
-        container.loadPersistentStores { desc, error in
-            if let error = error {
-                print(error.localizedDescription)
-            }
-        }
-
-        migrateStore(for: container)
-        container.viewContext.automaticallyMergesChangesFromParent = true
+    private var isNeededToSaveNewURL: Bool {
+        !FileManager.default.fileExists(atPath: oldStoreURL.path)
     }
 
-    func migrateStore(for container: NSPersistentContainer) {
-        print("Went into MigrateStore")
+    private init() {
+        saveStoreURL(isNeededToSaveNewURL)
+        loadStores()
+        migrateStore()
+        context.automaticallyMergesChangesFromParent = true
+    }
+
+    private func saveStoreURL(_ isNeededToSaveNewURL: Bool) {
+        guard isNeededToSaveNewURL else { return }
+        guard let description = container.persistentStoreDescriptions.first else { return }
+        description.url = sharedStoreURL
+    }
+
+    private func loadStores() {
+        container.loadPersistentStores { desc, error in
+              if let error = error {
+                  print(error.localizedDescription)
+              }
+        }
+    }
+
+    private func migrateStore() {
         let coordinator = container.persistentStoreCoordinator
-
         guard let oldStore = coordinator.persistentStore(for: oldStoreURL) else { return }
-        print("old store no longer exists")
-
+        // MARK: - Migrate Store
         do {
             let _ = try coordinator.migratePersistentStore(oldStore, to: sharedStoreURL, type: .sqlite)
-            print("Migration Succeed")
         } catch {
-            fatalError("Unable to migrate to shared store")
+            print(error.localizedDescription)
         }
-
+        // MARK: - Remove Old Store
         do {
             try FileManager.default.removeItem(at: oldStoreURL)
-            print("Old Store Deleted")
         } catch {
-            print("Unable to delete oldStore")
+            print(error.localizedDescription)
         }
     }
 }
@@ -77,10 +85,10 @@ extension CoreDataManager {
         }
     }
 
-    func getAllTodos() -> Array<TodoEntity>? {
+    func getAllTodos() -> [TodoEntity] {
         let fetchRequest: NSFetchRequest<TodoEntity> = TodoEntity.fetchRequest()
         let result = try? container.viewContext.fetch(fetchRequest)
-        return result
+        return result ?? []
     }
 
     func createTodo(title: String) {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C69C131C2911413300D9B47F /* Todo_WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69C131A2911411300D9B47F /* Todo_WidgetView.swift */; };
 		C6D34D7128F5B8D200D0AD70 /* Todo_CoreData_LockScreenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D34D7028F5B8D200D0AD70 /* Todo_CoreData_LockScreenApp.swift */; };
 		C6D34D7328F5B8D200D0AD70 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D34D7228F5B8D200D0AD70 /* ContentView.swift */; };
 		C6D34D7528F5B8D300D0AD70 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C6D34D7428F5B8D300D0AD70 /* Assets.xcassets */; };
@@ -50,6 +51,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C69C131A2911411300D9B47F /* Todo_WidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo_WidgetView.swift; sourceTree = "<group>"; };
+		C6AA71E228F930970091A868 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C6D34D6D28F5B8D200D0AD70 /* Todo-CoreData-LockScreen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Todo-CoreData-LockScreen.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6D34D7028F5B8D200D0AD70 /* Todo_CoreData_LockScreenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo_CoreData_LockScreenApp.swift; sourceTree = "<group>"; };
 		C6D34D7228F5B8D200D0AD70 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -112,6 +115,7 @@
 		C6D34D6F28F5B8D200D0AD70 /* Todo-CoreData-LockScreen */ = {
 			isa = PBXGroup;
 			children = (
+				C6AA71E228F930970091A868 /* Info.plist */,
 				C6D34D9D28F5BA3400D0AD70 /* Todo-CoreData-LockScreen.entitlements */,
 				C6D34D7028F5B8D200D0AD70 /* Todo_CoreData_LockScreenApp.swift */,
 				C6D34D7228F5B8D200D0AD70 /* ContentView.swift */,
@@ -145,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				C6D34D8D28F5B9FA00D0AD70 /* Todo_Widget.swift */,
+				C69C131A2911411300D9B47F /* Todo_WidgetView.swift */,
 				C6D34D8F28F5B9FA00D0AD70 /* Todo_Widget.intentdefinition */,
 				C6D34D9028F5B9FB00D0AD70 /* Assets.xcassets */,
 				C6D34D9228F5B9FB00D0AD70 /* Info.plist */,
@@ -266,6 +271,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C69C131C2911413300D9B47F /* Todo_WidgetView.swift in Sources */,
 				C6D34DA128F5BB3E00D0AD70 /* CoreDataManager.swift in Sources */,
 				C6D34DA328F5BB4E00D0AD70 /* DataModel.xcdatamodeld in Sources */,
 				C6D34D9328F5B9FB00D0AD70 /* Todo_Widget.intentdefinition in Sources */,
@@ -411,7 +417,8 @@
 				DEVELOPMENT_TEAM = 76AJ433CP5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = LockscreenTodo;
+				INFOPLIST_FILE = "Todo-CoreData-LockScreen/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "락스크린투두";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -449,7 +456,8 @@
 				DEVELOPMENT_TEAM = 76AJ433CP5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = LockscreenTodo;
+				INFOPLIST_FILE = "Todo-CoreData-LockScreen/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "락스크린투두";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
