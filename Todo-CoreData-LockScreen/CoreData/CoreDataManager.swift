@@ -10,10 +10,12 @@ import CoreData
 
 class CoreDataManager: ObservableObject {
 
+    // MARK: - Properties
     static let shared = CoreDataManager()
 
     private let databaseName = "DataModel.sqlite"
     private let container = NSPersistentContainer(name: "DataModel")
+
     private var context: NSManagedObjectContext {
         container.viewContext
     }
@@ -32,21 +34,25 @@ class CoreDataManager: ObservableObject {
         return container.appendingPathComponent(databaseName)
     }
 
+    // MARK: - init
     private init() {
         loadStores()
         migrateStore()
         context.automaticallyMergesChangesFromParent = true
     }
+}
 
-    private func loadStores() {
+// MARK: - Private Methods
+private extension CoreDataManager {
+    func loadStores() {
         container.loadPersistentStores { desc, error in
-              if let error = error {
-                  print(error.localizedDescription)
-              }
+            if let error = error {
+                print(error.localizedDescription)
+            }
         }
     }
 
-    private func migrateStore() {
+    func migrateStore() {
         let coordinator = container.persistentStoreCoordinator
         guard let oldStore = coordinator.persistentStore(for: oldStoreURL) else { return }
         do {
@@ -62,6 +68,7 @@ class CoreDataManager: ObservableObject {
     }
 }
 
+// MARK: - CRUD Logic
 extension CoreDataManager {
     func save() {
         do {
