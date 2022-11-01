@@ -32,23 +32,11 @@ class CoreDataManager: ObservableObject {
         return container.appendingPathComponent(databaseName)
     }
 
-//    private var isNeededToSaveNewURL: Bool {
-//        FileManager.default.fileExists(atPath: oldStoreURL.path)
-//    }
-
     private init() {
-//        saveStoreURL(isNeededToSaveNewURL)
         loadStores()
         migrateStore()
         context.automaticallyMergesChangesFromParent = true
     }
-
-//    private func saveStoreURL(_ isNeededToSaveNewURL: Bool) {
-//        guard isNeededToSaveNewURL else { return }
-//        guard let description = container.persistentStoreDescriptions.first else { return }
-//        description.url = sharedStoreURL
-//        print("DEBUG")
-//    }
 
     private func loadStores() {
         container.loadPersistentStores { desc, error in
