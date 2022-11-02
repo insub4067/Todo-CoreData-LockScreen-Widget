@@ -25,7 +25,7 @@ struct ContentView: View {
     }
 }
 
-extension ContentView {
+private extension ContentView {
     var addTodoSection: some View {
         Section("추가") {
             HStack {
