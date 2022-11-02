@@ -13,7 +13,7 @@ final class CoreDataManager {
     // MARK: - Properties
     static let shared = CoreDataManager()
 
-    private let databaseName = "DataModel.sqlite"
+    private let databaseName = CoreData.databaseName
     private let container = NSPersistentContainer(name: "DataModel")
 
     private var context: NSManagedObjectContext {
@@ -28,7 +28,7 @@ final class CoreDataManager {
     }
 
     private var sharedStoreURL: URL {
-        guard let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.kim.TodoLockScreen") else {
+        guard let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: CoreData.identifier) else {
             return URL(fileURLWithPath: "")
         }
         return container.appendingPathComponent(databaseName)
@@ -102,4 +102,9 @@ extension CoreDataManager {
         context.delete(todo)
         save()
     }
+}
+
+enum CoreData {
+    static let identifier = "group.com.kim.TodoLockScreen"
+    static let databaseName = "DataModel.sqlite"
 }
