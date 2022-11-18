@@ -9,26 +9,29 @@ import Foundation
 import CoreData
 
 final class CoreDataManager {
-
     // MARK: - Properties
     static let shared = CoreDataManager()
-
-    private let databaseName = CoreData.databaseName
+    private let databaseName = "DataModel.sqlite"
     private let container = NSPersistentContainer(name: "DataModel")
-
     private var context: NSManagedObjectContext {
         container.viewContext
     }
 
     private var oldStoreURL: URL {
-        guard let directory = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first else {
+        guard let directory = FileManager.default.urls(
+            for: .applicationSupportDirectory,
+            in: .userDomainMask)
+            .first
+        else {
             return URL(fileURLWithPath: "")
         }
         return directory.appendingPathComponent(databaseName)
     }
 
     private var sharedStoreURL: URL {
-        guard let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: CoreData.identifier) else {
+        guard let container = FileManager.default.containerURL(
+            forSecurityApplicationGroupIdentifier: CoreData.identifier)
+        else {
             return URL(fileURLWithPath: "")
         }
         return container.appendingPathComponent(databaseName)

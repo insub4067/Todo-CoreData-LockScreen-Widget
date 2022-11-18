@@ -8,7 +8,7 @@
 import CoreData
 import SwiftUI
 
-final class ContenViewModel: ObservableObject {
+final class ContentViewModel: ObservableObject {
     @Published var userInput = ""
     @Published var todoList: [TodoEntity] = []
     @Published var doneTodoList: [TodoEntity] = []
@@ -48,7 +48,7 @@ final class ContenViewModel: ObservableObject {
     }
 }
 
-private extension ContenViewModel {
+private extension ContentViewModel {
     func getAllTodos() {
         let response = CoreDataManager.shared.getAllTodos()
         DispatchQueue.main.async { [weak self] in

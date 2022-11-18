@@ -10,7 +10,7 @@ import WidgetKit
 
 struct ContentView: View {
     @Environment(\.scenePhase) var scenePhase
-    @ObservedObject var viewModel = ContenViewModel()
+    @ObservedObject var viewModel = ContentViewModel()
 
     var body: some View {
         List {
