@@ -8,9 +8,9 @@
 import SwiftUI
 import WidgetKit
 
-struct ContentView: View {
+struct MainView: View {
     @Environment(\.scenePhase) var scenePhase
-    @ObservedObject var viewModel = ContentViewModel()
+    @ObservedObject var viewModel = MainViewModel()
 
     var body: some View {
         List {
@@ -25,7 +25,7 @@ struct ContentView: View {
     }
 }
 
-private extension ContentView {
+private extension MainView {
     var addTodoSection: some View {
         Section("추가") {
             HStack {
