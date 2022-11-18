@@ -12,7 +12,7 @@ struct Todo_CoreData_LockScreenApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
         }
     }
 }
